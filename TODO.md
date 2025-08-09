@@ -6,12 +6,12 @@
 - [ ] USERS
   - [x] Create full CRUD operations
   - [x] Create forms and validation
-  - [ ] Occupations dropdown and backend call
+  - [x] Occupations dropdown and backend call
   - [ ] Implement grids
   - [ ] Mask ID number in view
 - [ ] OCCUPATIONS
-  - [ ] Create table
-  - [ ] Only requires a GET procedure
+  - [x] Create table
+  - [x] Only requires a GET procedure
 - [ ] PDF
   - [ ] Document upload
   - [ ] Figure out interactive preview/display of uploaded PDFs within the application

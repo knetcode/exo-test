@@ -1,7 +1,7 @@
 "use client";
 
 import { userFormSchema, UserFormSchema } from "@/db/users/schema";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTRPC } from "@/trpc/trpc";
@@ -11,6 +11,8 @@ export default function CreateUserPage() {
   const router = useRouter();
   const trpc = useTRPC();
   const createUser = useMutation(trpc.users.create.mutationOptions());
+  const occupations = useQuery(trpc.occupations.list.queryOptions());
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -27,6 +29,7 @@ export default function CreateUserPage() {
       },
       {
         onSuccess: () => {
+          queryClient.invalidateQueries(trpc.users.list.queryOptions());
           router.push("/users");
         },
       }
@@ -83,13 +86,19 @@ export default function CreateUserPage() {
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="dateOfBirth">Date of Birth</label>
-          <input type="date" className="max-w-80 border-2 border-slate-300" {...register("dateOfBirth")} />
+          <input type="date" className="max-w-80 border-2 border-slate-300" {...register("dateOfBirth")} disabled />
           {errors.dateOfBirth && <p>{errors.dateOfBirth.message}</p>}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="occupation">Occupation</label>
-          <input className="max-w-80 border-2 border-slate-300" {...register("occupation")} placeholder="Occupation" />
-          {errors.occupation && <p>{errors.occupation.message}</p>}
+          <select className="max-w-80 border-2 border-slate-300" {...register("occupationId")}>
+            {occupations.data?.map((occupation) => (
+              <option key={occupation.id} value={occupation.id}>
+                {occupation.name}
+              </option>
+            ))}
+          </select>
+          {errors.occupationId && <p>{errors.occupationId.message}</p>}
         </div>
         <button type="submit" disabled={createUser.isPending}>
           {createUser.isPending ? "Creating..." : "Submit"}

@@ -30,7 +30,7 @@ export async function userCreate(user: z.infer<typeof userDbSchema>) {
     lastName: user.lastName,
     idNumber: BigInt(user.idNumber),
     dateOfBirth: user.dateOfBirth.toISOString(),
-    occupation: user.occupation,
+    occupationId: user.occupationId,
   });
 
   return newUser;
@@ -50,7 +50,7 @@ export async function userUpdate(user: z.infer<typeof userDbSchema>, id: string)
       lastName: user.lastName,
       idNumber: BigInt(user.idNumber),
       dateOfBirth: user.dateOfBirth.toISOString(),
-      occupation: user.occupation,
+      occupationId: user.occupationId,
     })
     .where(eq(usersTable.id, id));
 

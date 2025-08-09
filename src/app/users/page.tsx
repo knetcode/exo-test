@@ -5,9 +5,10 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import Link from "next/link";
 
-export default function UsersPage() {
+export default function ListUsersPage() {
   const trpc = useTRPC();
   const userList = useQuery(trpc.users.list.queryOptions());
+  const occupationList = useQuery(trpc.occupations.list.queryOptions());
 
   const deleteUser = useMutation(trpc.users.delete.mutationOptions());
 
@@ -29,7 +30,7 @@ export default function UsersPage() {
           <p>Last Name: {user.lastName}</p>
           <p>ID Number: {user.idNumber}</p>
           <p>Date of Birth: {user.dateOfBirth}</p>
-          <p>Occupation: {user.occupation}</p>
+          <p>Occupation: {occupationList.data?.find((occupation) => occupation.id === user.occupationId)?.name}</p>
           <div className="flex gap-2 flex-row">
             <button type="button" onClick={() => onDelete(user.id)} disabled={deleteUser.isPending}>
               {deleteUser.isPending ? "Deleting..." : "Delete"}

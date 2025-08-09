@@ -2,6 +2,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Client } from "pg";
 import * as dotenv from "dotenv";
 import { usersTable } from "./users/schema";
+import { occupationsTable } from "./occupations/schema";
 
 dotenv.config({ path: ".env.local" });
 
@@ -12,9 +13,13 @@ const client = new Client({
 client.connect();
 
 export const db = drizzle(client, {
-  schema: { users: usersTable },
+  schema: {
+    users: usersTable,
+    occupations: occupationsTable,
+  },
 });
 
 export const schema = {
   users: usersTable,
+  occupations: occupationsTable,
 };

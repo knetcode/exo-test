@@ -1,26 +1,36 @@
 "use client";
 
-import { UserFormSchema } from "@/db/users/schema";
+import { UserFormSchema, userFormSchema } from "@/db/users/schema";
 import { useTRPC } from "@/trpc/trpc";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { use } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-export default function UserPage({ params }: { params: Promise<{ id: string }> }) {
+export default function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const trpc = useTRPC();
   const userById = useQuery(trpc.users.getById.queryOptions(id));
   const updateUser = useMutation(trpc.users.update.mutationOptions());
+  const occupations = useQuery(trpc.occupations.list.queryOptions());
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const { register, handleSubmit } = useForm<UserFormSchema>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserFormSchema>({
     defaultValues: {
       firstName: userById.data?.firstName,
       lastName: userById.data?.lastName,
       idNumber: userById.data?.idNumber,
       dateOfBirth: userById.data?.dateOfBirth,
-      occupation: userById.data?.occupation,
+      occupationId: userById.data?.occupationId,
     },
+    resolver: zodResolver(userFormSchema),
   });
 
   function onSubmit(data: UserFormSchema) {
@@ -32,7 +42,9 @@ export default function UserPage({ params }: { params: Promise<{ id: string }> }
       },
       {
         onSuccess: () => {
-          userById.refetch();
+          queryClient.invalidateQueries(trpc.users.list.queryOptions());
+          queryClient.invalidateQueries(trpc.users.getById.queryOptions(id));
+          router.push("/users");
         },
       }
     );
@@ -84,17 +96,23 @@ export default function UserPage({ params }: { params: Promise<{ id: string }> }
             {...register("dateOfBirth")}
             placeholder="Date of Birth"
             defaultValue={userById.data?.dateOfBirth}
+            disabled
           />
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="occupation">Occupation</label>
-          <input
+          <select
             className="max-w-80 border-2 border-slate-300"
-            type="text"
-            {...register("occupation")}
-            placeholder="Occupation"
-            defaultValue={userById.data?.occupation}
-          />
+            {...register("occupationId")}
+            defaultValue={userById.data?.occupationId}
+          >
+            {occupations.data?.map((occupation) => (
+              <option key={occupation.id} value={occupation.id}>
+                {occupation.name}
+              </option>
+            ))}
+          </select>
+          {errors.occupationId && <p>{errors.occupationId.message}</p>}
         </div>
         <button type="submit" disabled={updateUser.isPending}>
           {updateUser.isPending ? "Updating..." : "Submit"}
