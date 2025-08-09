@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# README.md
 
 ## Getting Started
 
-First, run the development server:
+- Clone this repo.
+- Ensure you have the latest [NodeJS](https://nodejs.org/en/download) installed on your system.
+- The prefered package manage is [PNPM](https://pnpm.io/installation), (alternatively you could use NPM if you prefer)
+  - `brew install pnpm`
+- From your terminal, cd into the root of this repo
+- Run `pnpm install` to install all the dependencies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Testing
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Run `pnpm dev` to start the local dev server on [http://localhost:3000](http://localhost:3000)
+- If you want to test the production build, run `pnpm build ; pnpm start`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `.env` file will be supplied via email to run locally
+- Postgres Database is hosted on my VPS
+- This application and database will be shutdown on 2025/08/31
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### Packages breakdown
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [T3 Env](https://env.t3.gg/docs/core) to help ensure compilation and type-safety on env vars
+- [Zod](https://zod.dev/) for schema validation
+- [Drizzle ORM](https://orm.drizzle.team/) as ORM of choice
