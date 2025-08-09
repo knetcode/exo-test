@@ -8,6 +8,9 @@ import { use } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 export default function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -21,6 +24,8 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<UserFormSchema>({
     defaultValues: {
@@ -56,12 +61,11 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
 
   return (
     <div>
-      <h1>User {id}</h1>
+      <h1>Edit User</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 items-start justify-start">
         <div className="flex flex-col gap-2">
           <label htmlFor="firstName">First Name</label>
-          <input
-            className="max-w-80 border-2 border-slate-300"
+          <Input
             type="text"
             {...register("firstName")}
             placeholder="First Name"
@@ -70,28 +74,15 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="lastName">Last Name</label>
-          <input
-            className="max-w-80 border-2 border-slate-300"
-            type="text"
-            {...register("lastName")}
-            placeholder="Last Name"
-            defaultValue={userById.data?.lastName}
-          />
+          <Input type="text" {...register("lastName")} placeholder="Last Name" defaultValue={userById.data?.lastName} />
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="idNumber">ID Number</label>
-          <input
-            className="max-w-80 border-2 border-slate-300"
-            type="text"
-            {...register("idNumber")}
-            placeholder="ID Number"
-            defaultValue={userById.data?.idNumber}
-          />
+          <Input type="text" {...register("idNumber")} placeholder="ID Number" defaultValue={userById.data?.idNumber} />
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="dateOfBirth">Date of Birth</label>
-          <input
-            className="max-w-80 border-2 border-slate-300"
+          <Input
             type="date"
             {...register("dateOfBirth")}
             placeholder="Date of Birth"
@@ -101,24 +92,29 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="occupation">Occupation</label>
-          <select
-            className="max-w-80 border-2 border-slate-300"
-            {...register("occupationId")}
-            defaultValue={userById.data?.occupationId}
-          >
-            {occupations.data?.map((occupation) => (
-              <option key={occupation.id} value={occupation.id}>
-                {occupation.name}
-              </option>
-            ))}
-          </select>
+          <Select value={watch("occupationId") || ""} onValueChange={(value) => setValue("occupationId", value)}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select an occupation" />
+            </SelectTrigger>
+            <SelectContent>
+              {occupations.data?.map((occupation) => (
+                <SelectItem key={occupation.id} value={occupation.id}>
+                  {occupation.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           {errors.occupationId && <p>{errors.occupationId.message}</p>}
         </div>
-        <button type="submit" disabled={updateUser.isPending}>
-          {updateUser.isPending ? "Updating..." : "Submit"}
-        </button>
+        <div className="flex gap-2">
+          <Button asChild variant="outline">
+            <Link href="/users">Back to users</Link>
+          </Button>
+          <Button type="submit" disabled={updateUser.isPending}>
+            {updateUser.isPending ? "Updating..." : "Submit"}
+          </Button>
+        </div>
       </form>
-      <Link href="/users">Back to users</Link>
     </div>
   );
 }

@@ -3,12 +3,12 @@
 ## Critical
 
 - [ ] Flesh out the readmes
-- [ ] USERS
+- [x] USERS
   - [x] Create full CRUD operations
   - [x] Create forms and validation
   - [x] Occupations dropdown and backend call
-  - [ ] Implement grids
-  - [ ] Mask ID number in view
+  - [x] Mask ID number in view
+  - [x] Implement grids
 - [x] OCCUPATIONS
   - [x] Create table
   - [x] Only requires a GET procedure

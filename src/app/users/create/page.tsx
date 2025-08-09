@@ -6,6 +6,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTRPC } from "@/trpc/trpc";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function CreateUserPage() {
   const router = useRouter();
@@ -18,6 +23,7 @@ export default function CreateUserPage() {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<UserFormSchema>({ resolver: zodResolver(userFormSchema) });
 
@@ -31,6 +37,7 @@ export default function CreateUserPage() {
         onSuccess: () => {
           queryClient.invalidateQueries(trpc.users.list.queryOptions());
           router.push("/users");
+          toast.success("User created successfully");
         },
       }
     );
@@ -63,46 +70,52 @@ export default function CreateUserPage() {
 
   return (
     <div>
+      <h1>Create User</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 items-start justify-start">
         <div className="flex flex-col gap-2">
           <label htmlFor="firstName">First Name</label>
-          <input className="max-w-80 border-2 border-slate-300" {...register("firstName")} placeholder="First Name" />
+          <Input {...register("firstName")} placeholder="First Name" />
           {errors.firstName && <p>{errors.firstName.message}</p>}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="lastName">Last Name</label>
-          <input className="max-w-80 border-2 border-slate-300" {...register("lastName")} placeholder="Last Name" />
+          <Input {...register("lastName")} placeholder="Last Name" />
           {errors.lastName && <p>{errors.lastName.message}</p>}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="idNumber">ID Number</label>
-          <input
-            className="max-w-80 border-2 border-slate-300"
-            {...register("idNumber")}
-            placeholder="ID Number"
-            onBlur={(e) => onIdBlur(e)}
-          />
+          <Input {...register("idNumber")} placeholder="ID Number" onBlur={(e) => onIdBlur(e)} />
           {errors.idNumber && <p>{errors.idNumber.message}</p>}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="dateOfBirth">Date of Birth</label>
-          <input type="date" className="max-w-80 border-2 border-slate-300" {...register("dateOfBirth")} disabled />
+          <Input type="date" {...register("dateOfBirth")} disabled />
           {errors.dateOfBirth && <p>{errors.dateOfBirth.message}</p>}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="occupation">Occupation</label>
-          <select className="max-w-80 border-2 border-slate-300" {...register("occupationId")}>
-            {occupations.data?.map((occupation) => (
-              <option key={occupation.id} value={occupation.id}>
-                {occupation.name}
-              </option>
-            ))}
-          </select>
+          <Select value={watch("occupationId") || ""} onValueChange={(value) => setValue("occupationId", value)}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select an occupation" />
+            </SelectTrigger>
+            <SelectContent>
+              {occupations.data?.map((occupation) => (
+                <SelectItem key={occupation.id} value={occupation.id}>
+                  {occupation.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           {errors.occupationId && <p>{errors.occupationId.message}</p>}
         </div>
-        <button type="submit" disabled={createUser.isPending}>
-          {createUser.isPending ? "Creating..." : "Submit"}
-        </button>
+        <div className="flex gap-2">
+          <Button asChild variant="outline">
+            <Link href="/users">Back to users</Link>
+          </Button>
+          <Button type="submit" disabled={createUser.isPending}>
+            {createUser.isPending ? "Creating..." : "Submit"}
+          </Button>
+        </div>
       </form>
       {createUser.isError && <p>{createUser.error.message}</p>}
     </div>
