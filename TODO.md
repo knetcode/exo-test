@@ -4,8 +4,8 @@
 
 - [ ] Flesh out the readmes
 - [ ] USERS
-  - [ ] Create full CRUD operations
-  - [ ] Create forms and validation
+  - [x] Create full CRUD operations
+  - [x] Create forms and validation
   - [ ] Occupations dropdown and backend call
   - [ ] Implement grids
   - [ ] Mask ID number in view
