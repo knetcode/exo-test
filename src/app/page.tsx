@@ -4,6 +4,7 @@ export default function HomePage() {
   return (
     <div>
       <Link href="/users">Users</Link>
+      <Link href="/xml">XML</Link>
     </div>
   );
 }

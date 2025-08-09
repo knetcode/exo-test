@@ -9,7 +9,6 @@ export default function ListUsersPage() {
   const trpc = useTRPC();
   const userList = useQuery(trpc.users.list.queryOptions());
   const occupationList = useQuery(trpc.occupations.list.queryOptions());
-
   const deleteUser = useMutation(trpc.users.delete.mutationOptions());
 
   function onDelete(id: string) {
@@ -19,6 +18,8 @@ export default function ListUsersPage() {
       },
     });
   }
+
+  if (userList.isLoading) return <div>Loading...</div>;
 
   return (
     <div>

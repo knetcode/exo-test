@@ -9,14 +9,14 @@
   - [x] Occupations dropdown and backend call
   - [ ] Implement grids
   - [ ] Mask ID number in view
-- [ ] OCCUPATIONS
+- [x] OCCUPATIONS
   - [x] Create table
   - [x] Only requires a GET procedure
 - [ ] PDF
   - [ ] Document upload
   - [ ] Figure out interactive preview/display of uploaded PDFs within the application
 - [ ] XML
-  - [ ] GET procedure for xml example
+  - [x] GET procedure for xml example
   - [ ] Render in table
 - [ ] Mobile Responsiveness tests
 
