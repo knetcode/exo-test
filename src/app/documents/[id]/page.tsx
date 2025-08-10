@@ -5,7 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { use } from "react";
 import { Loading } from "@/components/loading";
 
-export default function DocumentPage({ params }: { params: Promise<{ id: string }> }) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default function DocumentPage({ params }: Readonly<Props>) {
   const { id } = use(params);
   const trpc = useTRPC();
   const document = useQuery(trpc.documents.getById.queryOptions(id));

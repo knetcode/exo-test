@@ -17,7 +17,11 @@ import { toast } from "sonner";
 import { FormContainer } from "@/components/form-container";
 import { Loading } from "@/components/loading";
 
-export default function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default function EditUserPage({ params }: Readonly<Props>) {
   const { id } = use(params);
   const trpc = useTRPC();
   const userById = useQuery(trpc.users.getById.queryOptions(id));

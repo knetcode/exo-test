@@ -31,7 +31,11 @@ function getQueryClient() {
     return browserQueryClient;
   }
 }
-export function Providers({ children }: { children: React.ReactNode }) {
+type Props = {
+  children: React.ReactNode;
+};
+
+export function Providers({ children }: Readonly<Props>) {
   const queryClient = getQueryClient();
   const [trpcClient] = useState(() => trpc);
 
