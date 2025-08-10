@@ -20,7 +20,7 @@ export async function userCreate(user: z.infer<typeof userDbSchema>) {
   const newUser = await db.insert(usersTable).values({
     firstName: user.firstName,
     lastName: user.lastName,
-    idNumber: user.idNumber, // No BigInt conversion needed
+    idNumber: user.idNumber,
     dateOfBirth: user.dateOfBirth.toISOString(),
     occupationId: user.occupationId,
   });

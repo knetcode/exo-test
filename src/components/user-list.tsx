@@ -39,7 +39,6 @@ export function UserList() {
           <Link href="/users/create">Create User</Link>
         </Button>
       </div>
-
       <div className="bg-card border border-border/50 rounded-lg overflow-hidden">
         {userList.data ? (
           <UserDataTable data={userListData ?? []} />

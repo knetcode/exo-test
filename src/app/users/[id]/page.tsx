@@ -100,10 +100,9 @@ export default function EditUserPage({ params }: Readonly<Props>) {
       <div className="bg-card/50 border border-border rounded-2xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
         <h1 className="text-xl sm:text-2xl font-bold text-center text-teal-500 mb-4 sm:mb-6 md:mb-8">Edit User</h1>
         <p className="text-center text-muted-foreground">Update user information</p>
-
         <div className="border-t border-border pt-4 sm:pt-6">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="bg-card border border-border/50 rounded-lg p-3 sm:p-4 sm:p-6">
+            <div className="bg-card border border-border/50 rounded-lg p-3 sm:p-4">
               <FormContainer>
                 <FormInput
                   label="First Name"

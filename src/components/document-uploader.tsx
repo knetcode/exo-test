@@ -40,6 +40,7 @@ export function DocumentUploader() {
                 queryClient.invalidateQueries(trpc.documents.list.queryOptions());
               },
             });
+
             if (result) {
               toast.success(`File "${file.name}" uploaded successfully!`);
               queryClient.invalidateQueries(trpc.documents.list.queryOptions());
@@ -59,9 +60,7 @@ export function DocumentUploader() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: {
-      "application/pdf": [".pdf"],
-    },
+    accept: { "application/pdf": [".pdf"] },
     maxSize: 2 * 1024 * 1024, // 2MB
     multiple: true,
   });

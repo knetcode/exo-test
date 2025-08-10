@@ -23,7 +23,6 @@ export default function DocumentPage({ params }: Readonly<Props>) {
       <div className="bg-card/50 border border-border rounded-2xl p-8 space-y-6">
         <h1 className="text-2xl font-bold text-center text-teal-500 mb-8">Document Viewer</h1>
         <p className="text-center text-muted-foreground">View your uploaded document</p>
-
         <div className="border-t border-border pt-6">
           <div className="bg-card border border-border/50 rounded-lg overflow-hidden">
             <div className="h-[80vh] w-full">
