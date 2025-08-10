@@ -24,7 +24,7 @@ export function OccupationField({ defaultOccupationId, setOccupationId, error }:
         Occupation
       </label>
       <Select defaultValue={defaultOccupationId} onValueChange={setOccupationId}>
-        <SelectTrigger className="w-full border-border/50 focus:border-teal-500 focus:ring-teal-500">
+        <SelectTrigger className="w-full border-border/50 focus:border-teal-500 ">
           <SelectValue placeholder="Select an occupation" />
         </SelectTrigger>
         <SelectContent defaultValue={defaultOccupationId}>

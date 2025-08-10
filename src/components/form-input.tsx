@@ -35,7 +35,7 @@ export function FormInput<T extends FieldValues>({
         defaultValue={defaultValue}
         disabled={disabled}
         onBlur={onBlur}
-        className="border-border/50 focus:border-teal-500 focus:ring-teal-500"
+        className="border-border/50"
       />
       {error && <p className="text-red-400 text-sm">{error.message}</p>}
     </div>
