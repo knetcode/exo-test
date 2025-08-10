@@ -84,23 +84,13 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-border pt-4 sm:pt-6 mt-4 sm:mt-6">
-            <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+            <div className="grid gap-4 sm:gap-6 md:grid-cols-1">
               <div>
                 <h3 className="font-semibold text-foreground mb-2">System Requirements</h3>
                 <ul className="space-y-1 text-sm text-muted-foreground">
                   <li>• The application should offer seamless navigation between different pages and components.</li>
                   <li>• Ensure the application is mobile-responsive and optimized for a variety of screen sizes.</li>
                   <li>• A README file is optional but encouraged for clarity and ease of use.</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground mb-2">Technical Requirements</h3>
-                <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li>• Use Next.js 15 with App Router</li>
-                  <li>• Implement tRPC for type-safe API calls</li>
-                  <li>• Use React Query for data fetching and caching</li>
-                  <li>• Implement proper error handling and loading states</li>
-                  <li>• Use Tailwind CSS for styling</li>
                 </ul>
               </div>
             </div>
