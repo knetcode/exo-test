@@ -23,7 +23,7 @@ async function seedUsers() {
     {
       firstName: "Kyle",
       lastName: "Esterhuizen",
-      idNumber: 9411115027088,
+      idNumber: "9411115027088",
       dateOfBirth: "1994-01-01",
       occupationId: "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
     },
@@ -35,7 +35,7 @@ async function seedUsers() {
       .values({
         firstName: user.firstName,
         lastName: user.lastName,
-        idNumber: BigInt(user.idNumber),
+        idNumber: user.idNumber,
         dateOfBirth: user.dateOfBirth,
         occupationId: user.occupationId,
       })

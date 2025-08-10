@@ -7,28 +7,20 @@ import { eq } from "drizzle-orm";
 export async function userFindAll() {
   const users = await db.select().from(usersTable);
 
-  return users.map((user) => ({
-    ...user,
-    idNumber: user.idNumber.toString(), // Convert BigInt values to strings for JSON serialization
-  }));
+  return users;
 }
 
 export async function userFindById(id: string) {
-  const user = await db.select().from(usersTable).where(eq(usersTable.id, id)).limit(1);
+  const [user] = await db.select().from(usersTable).where(eq(usersTable.id, id)).limit(1);
 
-  return user
-    ? {
-        ...user[0],
-        idNumber: user[0].idNumber.toString(), // Convert BigInt to string for JSON serialization
-      }
-    : undefined;
+  return user;
 }
 
 export async function userCreate(user: z.infer<typeof userDbSchema>) {
   const newUser = await db.insert(usersTable).values({
     firstName: user.firstName,
     lastName: user.lastName,
-    idNumber: BigInt(user.idNumber),
+    idNumber: user.idNumber, // No BigInt conversion needed
     dateOfBirth: user.dateOfBirth.toISOString(),
     occupationId: user.occupationId,
   });
@@ -48,7 +40,7 @@ export async function userUpdate(user: z.infer<typeof userDbSchema>, id: string)
     .set({
       firstName: user.firstName,
       lastName: user.lastName,
-      idNumber: BigInt(user.idNumber),
+      idNumber: user.idNumber,
       dateOfBirth: user.dateOfBirth.toISOString(),
       occupationId: user.occupationId,
     })

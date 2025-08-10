@@ -1,4 +1,4 @@
-import { uuid, text, timestamp, date, bigint } from "drizzle-orm/pg-core";
+import { uuid, text, timestamp, date } from "drizzle-orm/pg-core";
 import { pgTable } from "drizzle-orm/pg-core";
 import { occupationsTable } from "../occupations/schema";
 import { z } from "zod";
@@ -43,7 +43,7 @@ export const usersTable = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
-  idNumber: bigint("id_number", { mode: "bigint" }).notNull(),
+  idNumber: text("id_number").notNull(),
   dateOfBirth: date("date_of_birth").notNull(),
   occupationId: uuid("occupation_id")
     .notNull()
