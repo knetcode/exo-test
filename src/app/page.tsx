@@ -1,28 +1,35 @@
-import { GithubIcon, GlobeIcon, VariableIcon } from "lucide-react";
+import { FileIcon, GithubIcon, GlobeIcon, VariableIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
     <div className="w-4/5 bg-black mx-auto p-8 rounded-3xl flex flex-col gap-2 text-teal-500">
-      <code className="text-center font-semibold mb-4">Test application for EXOGROUP</code>
-      <code>
-        <Link className="flex flex-row gap-2" target="_blank" href="https://github.com/knetcode/exo-test">
+      <p className="text-center font-semibold mb-4">Test application for EXOGROUP</p>
+      <div>
+        <Link className="flex flex-row gap-2" target="_blank" href="https://github.com/knetp/exo-test">
           <GithubIcon />
-          Repo: https://github.com/knetcode/exo-test
+          Repo: https://github.com/knetp/exo-test
         </Link>
-      </code>
-      <code>
-        <Link className="flex flex-row gap-2" target="_blank" href="https://exo-test.coolify.knetcode.com">
+      </div>
+      <div>
+        <Link className="flex flex-row gap-2" target="_blank" href="https://exo-test.coolify.knetp.com/README.md">
+          <FileIcon />
+          README: https://github.com/knetp/exo-test/README.md
+        </Link>
+      </div>
+      <div>
+        <Link className="flex flex-row gap-2" target="_blank" href="https://exo-test.coolify.knetp.com">
           <GlobeIcon />
-          Live: https://exo-test.coolify.knetcode.com
+          Live: https://exo-test.coolify.knetp.com
         </Link>
-      </code>
-      <code className="flex flex-row gap-2">
+      </div>
+      <p className="flex flex-row gap-2">
         <VariableIcon />
-        ENV: Provided via email to recruiter
-      </code>
-      <code className="text-center font-semibold mt-4">OBJECTIVES</code>
-      <code>
+        .env.local: Provided via email to recruiter
+      </p>
+
+      <p className="text-center font-semibold mt-4">OBJECTIVES</p>
+      <div>
         <h2 className="font-semibold mt-4">Data Capture</h2>
         <ul className="list-disc list-inside">
           <li>First Name</li>
@@ -32,9 +39,11 @@ export default function HomePage() {
           <li>Occupation options. (Dropdown with min 20 options)</li>
         </ul>
         <h2 className="font-semibold mt-4">Data Privacy</h2>
-        <p>Implement obscuring/masking of sensitive personal information in the UI to protect user privacy.</p>
-      </code>
-      <code>
+        <ul className="list-disc list-inside">
+          <li>Implement obscuring/masking of sensitive personal information in the UI to protect user privacy.</li>
+        </ul>
+      </div>
+      <div>
         <h2 className="font-semibold mt-4">PDF Handling</h2>
         <ul className="list-disc list-inside">
           <li>Enable users to upload documents (e.g., PDFs).</li>
@@ -48,8 +57,8 @@ export default function HomePage() {
             dynamically rendered in the UI.
           </li>
         </ul>
-      </code>
-      <code>
+      </div>
+      <div>
         <h2 className="font-semibold mt-4">System Requirements</h2>
         <ul className="list-disc list-inside">
           <li>The application should offer seamless navigation between different pages and components.</li>
@@ -63,7 +72,7 @@ export default function HomePage() {
           <li>Provide a clearly defined database schema.</li>
           <li>Include the necessary Docker configuration files to support the setup and usage of the database.</li>
         </ul>
-      </code>
+      </div>
     </div>
   );
 }
