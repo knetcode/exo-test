@@ -1,33 +1,18 @@
-"use client";
-
-import { useQuery } from "@tanstack/react-query";
-import { XMLDataTable } from "@/components/xml-data-table";
-import { parseXMLData } from "@/utils/xml-parser";
+import { Info } from "lucide-react";
+import { XMLList } from "@/components/xml-list";
 
 export default function XMLPage() {
-  const xmlQuery = useQuery({
-    queryKey: ["xml"],
-    queryFn: () => fetch("/api/xml").then((res) => res.text()),
-  });
-
-  if (xmlQuery.isLoading) return <div>Loading...</div>;
-  if (xmlQuery.error) return <div>Error: {xmlQuery.error.message}</div>;
-
-  const parsedData = parseXMLData(xmlQuery.data ?? "");
-
   return (
     <div className="space-y-6">
-      <p>
-        Wasn&apos;t too sure what the correct display of the data should be so I just went with my gut feel on how to
-        display the data on the UI
-      </p>
-      {parsedData.length > 0 ? (
-        <XMLDataTable data={parsedData} />
-      ) : (
-        <div>
-          <p>No XML data could be parsed</p>
-        </div>
-      )}
+      <div className="text-md text-muted-foreground text-center underline flex items-center gap-2 justify-center">
+        <Info />
+        <p>
+          Wasn&apos;t too sure what the correct display of the data should be so I just went with my gut feel on how to
+          display the data on the UI
+        </p>
+      </div>
+      <h1 className="text-2xl font-semibold text-teal-500 text-center mb-4">XML List</h1>
+      <XMLList />
     </div>
   );
 }

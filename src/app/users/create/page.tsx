@@ -13,6 +13,7 @@ import { FormInput } from "@/components/form-input";
 import { OccupationField } from "@/components/occupation-field";
 import { ButtonContainer } from "@/components/button-container";
 import { onIdBlur } from "@/utils/on-id-blur";
+import { FormContainer } from "@/components/form-container";
 
 export default function CreateUserPage() {
   const router = useRouter();
@@ -44,26 +45,26 @@ export default function CreateUserPage() {
   }
 
   return (
-    <div>
-      <h1>Create User</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 items-start justify-start">
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="text-2xl font-semibold text-teal-500 text-center mb-4">Create User</h1>
+      <FormContainer>
         <FormInput
           label="First Name"
-          placeholder="First Name"
+          placeholder="John"
           type="text"
           error={errors.firstName}
           register={register("firstName")}
         />
         <FormInput
           label="Last Name"
-          placeholder="Last Name"
+          placeholder="Doe"
           type="text"
           error={errors.lastName}
           register={register("lastName")}
         />
         <FormInput
           label="ID Number"
-          placeholder="ID Number"
+          placeholder="9104285081088"
           type="text"
           error={errors.idNumber}
           register={register("idNumber")}
@@ -71,7 +72,6 @@ export default function CreateUserPage() {
         />
         <FormInput
           label="Date of Birth"
-          placeholder="Date of Birth"
           type="date"
           error={errors.dateOfBirth}
           register={register("dateOfBirth")}
@@ -86,8 +86,8 @@ export default function CreateUserPage() {
             {createUser.isPending ? "Creating..." : "Submit"}
           </Button>
         </ButtonContainer>
-      </form>
-      {createUser.isError && <p>{createUser.error.message}</p>}
-    </div>
+        {createUser.isError && <p className="text-red-500 text-sm">{createUser.error?.message}</p>}
+      </FormContainer>
+    </form>
   );
 }

@@ -7,7 +7,7 @@ export function Nav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex gap-4 justify-end py-4 mb-4">
+    <nav className="flex gap-4 md:justify-end justify-center py-4 mb-4">
       <Link className={pathname === "/" ? "text-teal-500" : ""} href="/">
         Home
       </Link>

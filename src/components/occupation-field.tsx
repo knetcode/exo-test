@@ -18,8 +18,10 @@ export function OccupationField({ defaultOccupationId, setOccupationId, error }:
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor="occupation">Occupation</label>
+    <div className="flex flex-col gap-2 w-full">
+      <label className="text-sm font-medium text-teal-500" htmlFor="occupation">
+        Occupation
+      </label>
       <Select defaultValue={defaultOccupationId} onValueChange={setOccupationId}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select an occupation" />

@@ -18,8 +18,8 @@
 - [x] XML
   - [x] GET procedure for xml example
   - [x] Render in table
-- [ ] Make it look decent
-- [ ] Mobile Responsiveness tests
+- [x] Make it look decent
+- [x] Mobile Responsiveness tests
 
 ---
 

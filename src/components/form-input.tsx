@@ -1,9 +1,10 @@
 import { Input } from "@/components/ui/input";
 import { FieldError, UseFormRegister, FieldValues } from "react-hook-form";
+import { Label } from "./ui/label";
 
 type Props<T extends FieldValues> = {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   type: string;
   defaultValue?: string;
   error?: FieldError;
@@ -23,12 +24,14 @@ export function FormInput<T extends FieldValues>({
   onBlur,
 }: Readonly<Props<T>>) {
   return (
-    <div className="flex flex-col gap-2">
-      <label>{label}</label>
+    <div className="flex flex-col gap-2 w-full">
+      <Label htmlFor={label} className="text-sm font-medium text-teal-500">
+        {label}
+      </Label>
       <Input
         type={type}
         {...register}
-        placeholder={placeholder}
+        placeholder={placeholder ?? ""}
         defaultValue={defaultValue}
         disabled={disabled}
         onBlur={onBlur}

@@ -11,7 +11,7 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, Edit2, MoreHorizontal, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -158,8 +158,12 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => router.push(`/users/${user.id}`)}>Edit User</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>Delete User</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push(`/users/${user.id}`)}>
+                  <Edit2 /> Edit User
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
+                  <Trash2 /> Delete User
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -173,7 +177,12 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={() => onDelete(user.id)}>Delete User</AlertDialogAction>
+                  <Button variant="destructive" size="sm" className="flex items-center space-x-1" asChild>
+                    <AlertDialogAction onClick={() => onDelete(user.id)}>
+                      <Trash2 className="h-4 w-4 mr-1" />
+                      <span>Delete User</span>
+                    </AlertDialogAction>
+                  </Button>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>

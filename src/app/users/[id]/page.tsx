@@ -14,6 +14,7 @@ import { OccupationField } from "@/components/occupation-field";
 import { ButtonContainer } from "@/components/button-container";
 import { onIdBlur } from "@/utils/on-id-blur";
 import { toast } from "sonner";
+import { FormContainer } from "@/components/form-container";
 
 export default function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -72,12 +73,12 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
   }
 
   return (
-    <div>
-      <h1>Edit User</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 items-start justify-start">
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="text-2xl font-semibold text-teal-500 text-center mb-4">Edit User</h1>
+      <FormContainer>
         <FormInput
           label="First Name"
-          placeholder="First Name"
+          placeholder="John"
           type="text"
           defaultValue={userById.data?.firstName}
           error={errors.firstName}
@@ -85,7 +86,7 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
         />
         <FormInput
           label="Last Name"
-          placeholder="Last Name"
+          placeholder="Doe"
           type="text"
           defaultValue={userById.data?.lastName}
           error={errors.lastName}
@@ -93,7 +94,7 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
         />
         <FormInput
           label="ID Number"
-          placeholder="ID Number"
+          placeholder="9104285081088"
           type="text"
           error={errors.idNumber}
           register={register("idNumber")}
@@ -101,7 +102,6 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
         />
         <FormInput
           label="Date of Birth"
-          placeholder="Date of Birth"
           type="date"
           defaultValue={userById.data?.dateOfBirth}
           error={errors.dateOfBirth}
@@ -121,8 +121,8 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
             {updateUser.isPending ? "Updating..." : "Submit"}
           </Button>
         </ButtonContainer>
-      </form>
-      {updateUser.isError && <p>{updateUser.error.message}</p>}
-    </div>
+      </FormContainer>
+      {updateUser.isError && <p className="text-red-500 text-sm">{updateUser.error?.message}</p>}
+    </form>
   );
 }
