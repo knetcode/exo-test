@@ -39,12 +39,12 @@ export function DocumentItem({ doc }: Readonly<Props>) {
   const [documentToDelete, setDocumentToDelete] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  const handleDelete = async (id: string) => {
+  async function handleDelete(id: string) {
     setDocumentToDelete(id);
     setDeleteDialogOpen(true);
-  };
+  }
 
-  const confirmDelete = async () => {
+  async function confirmDelete() {
     if (!documentToDelete) return;
 
     try {
@@ -56,9 +56,9 @@ export function DocumentItem({ doc }: Readonly<Props>) {
     } catch (error) {
       toast.error(`Delete failed: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
-  };
+  }
 
-  const handleDownload = (url: string, filename: string) => {
+  function handleDownload(url: string, filename: string) {
     const link = document.createElement("a");
     link.href = url;
     link.target = "_blank";
@@ -66,15 +66,15 @@ export function DocumentItem({ doc }: Readonly<Props>) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
+  }
 
-  const formatFileSize = (bytes: number) => {
+  function formatFileSize(bytes: number) {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
     const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
-  };
+  }
 
   if (deleteMutation.isPending) return <Loading text="Deleting document..." />;
 

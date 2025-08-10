@@ -11,6 +11,12 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      "prefer-arrow-callback": "off",
+      "func-style": ["error", "declaration"],
+    },
+  },
 ];
 
 export default eslintConfig;

@@ -64,7 +64,7 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
     setDeleteDialogOpen(true);
   }
 
-  const confirmDelete = async () => {
+  async function confirmDelete() {
     if (!userToDelete) return;
 
     try {
@@ -76,7 +76,7 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
     } catch (error) {
       toast.error(`Delete failed: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
-  };
+  }
 
   const columns: ColumnDef<UserColumn>[] = [
     {
