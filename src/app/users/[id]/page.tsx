@@ -15,6 +15,7 @@ import { ButtonContainer } from "@/components/button-container";
 import { onIdBlur } from "@/utils/on-id-blur";
 import { toast } from "sonner";
 import { FormContainer } from "@/components/form-container";
+import { Loading } from "@/components/loading";
 
 export default function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -68,61 +69,90 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
     }
   }, [userById.data, setValue]);
 
-  if (userById.isFetching) {
-    return <div>Loading...</div>;
+  if (userById.isLoading) {
+    return (
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-card/50 border border-border rounded-2xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+          <Loading text="Loading user..." />
+        </div>
+      </div>
+    );
+  }
+
+  if (userById.isError) {
+    return (
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-card/50 border border-border rounded-2xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+          <div className="text-center">
+            <p className="text-red-400 text-sm">Error: {userById.error?.message}</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-2xl font-semibold text-teal-500 text-center mb-4">Edit User</h1>
-      <FormContainer>
-        <FormInput
-          label="First Name"
-          placeholder="John"
-          type="text"
-          defaultValue={userById.data?.firstName}
-          error={errors.firstName}
-          register={register("firstName")}
-        />
-        <FormInput
-          label="Last Name"
-          placeholder="Doe"
-          type="text"
-          defaultValue={userById.data?.lastName}
-          error={errors.lastName}
-          register={register("lastName")}
-        />
-        <FormInput
-          label="ID Number"
-          placeholder="9104285081088"
-          type="text"
-          error={errors.idNumber}
-          register={register("idNumber")}
-          onBlur={(e) => onIdBlur(e, (value) => setValue("dateOfBirth", value))}
-        />
-        <FormInput
-          label="Date of Birth"
-          type="date"
-          defaultValue={userById.data?.dateOfBirth}
-          error={errors.dateOfBirth}
-          register={register("dateOfBirth")}
-          disabled
-        />
-        <OccupationField
-          defaultOccupationId={userById.data?.occupationId}
-          setOccupationId={(value) => setValue("occupationId", value)}
-          error={errors.occupationId}
-        />
-        <ButtonContainer>
-          <Button asChild variant="outline">
-            <Link href="/users">Back to users</Link>
-          </Button>
-          <Button type="submit" disabled={updateUser.isPending}>
-            {updateUser.isPending ? "Updating..." : "Submit"}
-          </Button>
-        </ButtonContainer>
-      </FormContainer>
-      {updateUser.isError && <p className="text-red-500 text-sm">{updateUser.error?.message}</p>}
-    </form>
+    <div className="max-w-4xl mx-auto">
+      <div className="bg-card/50 border border-border rounded-2xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-center text-teal-500 mb-4 sm:mb-6 md:mb-8">Edit User</h1>
+        <p className="text-center text-muted-foreground">Update user information</p>
+
+        <div className="border-t border-border pt-4 sm:pt-6">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="bg-card border border-border/50 rounded-lg p-4 sm:p-6">
+              <FormContainer>
+                <FormInput
+                  label="First Name"
+                  placeholder="John"
+                  type="text"
+                  error={errors.firstName}
+                  register={register("firstName")}
+                />
+                <FormInput
+                  label="Last Name"
+                  placeholder="Doe"
+                  type="text"
+                  error={errors.lastName}
+                  register={register("lastName")}
+                />
+                <FormInput
+                  label="ID Number"
+                  placeholder="9104285081088"
+                  type="text"
+                  error={errors.idNumber}
+                  register={register("idNumber")}
+                  onBlur={(e) => onIdBlur(e, (value) => setValue("dateOfBirth", value))}
+                />
+                <FormInput
+                  label="Date of Birth"
+                  type="date"
+                  error={errors.dateOfBirth}
+                  register={register("dateOfBirth")}
+                  disabled
+                />
+                <OccupationField
+                  setOccupationId={(value) => setValue("occupationId", value)}
+                  error={errors.occupationId}
+                  defaultOccupationId={userById.data?.occupationId ?? ""}
+                />
+                <ButtonContainer>
+                  <Button asChild variant="outline">
+                    <Link href="/users">Back to users</Link>
+                  </Button>
+                  <Button
+                    variant="default"
+                    type="submit"
+                    className="flex items-center space-x-1 bg-teal-500 hover:bg-teal-600"
+                  >
+                    {updateUser.isPending ? "Updating..." : "Update User"}
+                  </Button>
+                </ButtonContainer>
+                {updateUser.isError && <p className="text-red-400 text-sm">{updateUser.error?.message}</p>}
+              </FormContainer>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -14,32 +14,38 @@ export function XMLDataTable({ data }: Readonly<Props>) {
 
   return (
     <div className="w-full">
-      <div className="overflow-hidden rounded-md border">
+      <div className="overflow-hidden rounded-md border border-border/50">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-muted/20">
               {data.map((group, groupIndex) => (
                 <TableHead
                   key={groupIndex}
                   colSpan={Math.max(1, group.columns.length)}
-                  className="text-center text-sm font-semibold border-r "
+                  className="text-center text-sm font-semibold border-r border-border/50"
                 >
-                  <div>{group.moduleDescription}</div>
-                  <div className="text-xs font-mono">{group.moduleCode}</div>
+                  <div className="text-teal-700 font-semibold">{group.moduleDescription}</div>
+                  <div className="text-xs font-mono text-teal-600">{group.moduleCode}</div>
                 </TableHead>
               ))}
             </TableRow>
-            <TableRow>
+            <TableRow className="bg-muted/20">
               {data.map((group) => {
                 if (group.columns.length === 0) {
                   return (
-                    <TableHead key={group.moduleCode} className="text-sm font-medium border-r">
+                    <TableHead
+                      key={group.moduleCode}
+                      className="text-sm font-medium border-r border-border/50 text-teal-600"
+                    >
                       -
                     </TableHead>
                   );
                 } else {
                   return group.columns.map((columnName, colIndex) => (
-                    <TableHead key={`${group.moduleCode}-${colIndex}`} className="text-sm font-medium border-r ">
+                    <TableHead
+                      key={`${group.moduleCode}-${colIndex}`}
+                      className="text-sm font-medium border-r border-border/50 text-teal-600"
+                    >
                       {columnName}
                     </TableHead>
                   ));
@@ -50,25 +56,25 @@ export function XMLDataTable({ data }: Readonly<Props>) {
           <TableBody>
             {tableData.length > 0 ? (
               tableData.map((row, rowIndex) => (
-                <TableRow key={rowIndex} className={rowIndex % 2 === 0 ? "" : "/50"}>
+                <TableRow key={rowIndex} className={rowIndex % 2 === 0 ? "bg-background" : "bg-muted/10"}>
                   {data.map((group) => {
                     if (group.columns.length === 0) {
                       return (
-                        <TableCell key={group.moduleCode} className="border-r">
-                          <div className="text-sm">-</div>
+                        <TableCell key={group.moduleCode} className="border-r border-border/50">
+                          <div className="text-sm text-muted-foreground">-</div>
                         </TableCell>
                       );
                     } else {
                       return group.columns.map((columnName, colIndex) => {
                         if (columnName === "Identification Number") {
                           return (
-                            <TableCell key={`${group.moduleCode}-${colIndex}`} className="border-r ">
-                              <div className="text-sm">{maskId(row[columnName] ?? "-")}</div>
+                            <TableCell key={`${group.moduleCode}-${colIndex}`} className="border-r border-border/50">
+                              <div className="text-sm font-mono">{maskId(row[columnName] ?? "-")}</div>
                             </TableCell>
                           );
                         } else {
                           return (
-                            <TableCell key={`${group.moduleCode}-${colIndex}`} className="border-r ">
+                            <TableCell key={`${group.moduleCode}-${colIndex}`} className="border-r border-border/50">
                               <div className="text-sm">{row[columnName] ?? "-"}</div>
                             </TableCell>
                           );
@@ -82,7 +88,7 @@ export function XMLDataTable({ data }: Readonly<Props>) {
               <TableRow>
                 <TableCell
                   colSpan={data.reduce((total, group) => total + Math.max(1, group.columns.length), 0)}
-                  className="h-24 text-center"
+                  className="h-24 text-center text-muted-foreground"
                 >
                   No XML data available.
                 </TableCell>

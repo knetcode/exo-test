@@ -57,15 +57,26 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
   const queryClient = useQueryClient();
   const deleteUser = useMutation(trpc.users.delete.mutationOptions());
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<string | null>(null);
 
   function onDelete(id: string) {
-    deleteUser.mutate(id, {
-      onSuccess: () => {
-        queryClient.invalidateQueries(trpc.users.list.queryOptions());
-        toast.success("User deleted successfully");
-      },
-    });
+    setUserToDelete(id);
+    setDeleteDialogOpen(true);
   }
+
+  const confirmDelete = async () => {
+    if (!userToDelete) return;
+
+    try {
+      await deleteUser.mutateAsync(userToDelete);
+      queryClient.invalidateQueries(trpc.users.list.queryOptions());
+      toast.success("User deleted successfully");
+      setDeleteDialogOpen(false);
+      setUserToDelete(null);
+    } catch (error) {
+      toast.error(`Delete failed: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
+  };
 
   const columns: ColumnDef<UserColumn>[] = [
     {
@@ -78,69 +89,80 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             First Name
-            <ArrowUpDown />
+            <ArrowUpDown className="h-4 w-4 ml-1 text-teal-500" />
           </Button>
         );
       },
-      cell: ({ row }) => <div>{row.getValue("firstName")}</div>,
+      cell: ({ row }) => <div className="font-medium">{row.getValue("firstName")}</div>,
     },
     {
       accessorKey: "lastName",
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Last Name
-            <ArrowUpDown />
+            <ArrowUpDown className="h-4 w-4 ml-1 text-teal-500" />
           </Button>
         );
       },
-      cell: ({ row }) => <div>{row.getValue("lastName")}</div>,
+      cell: ({ row }) => <div className="font-medium">{row.getValue("lastName")}</div>,
     },
     {
       accessorKey: "idNumber",
-      header: "ID Number",
-      cell: ({ row }) => <div className="font-mono">{row.getValue("idNumber")}</div>,
+      header: ({ column }) => {
+        return (
+          <Button
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            ID Number
+            <ArrowUpDown className="h-4 w-4 ml-1 text-teal-500" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div className="font-mono text-sm">{row.getValue("idNumber")}</div>,
     },
     {
       accessorKey: "dateOfBirth",
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Date of Birth
-            <ArrowUpDown />
+            <ArrowUpDown className="h-4 w-4 ml-1 text-teal-500" />
           </Button>
         );
       },
-      cell: ({ row }) => <div>{row.getValue("dateOfBirth")}</div>,
+      cell: ({ row }) => <div className="text-sm">{row.getValue("dateOfBirth")}</div>,
     },
     {
       accessorKey: "occupation",
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Occupation
-            <ArrowUpDown />
+            <ArrowUpDown className="h-4 w-4 ml-1 text-teal-500" />
           </Button>
         );
       },
-      cell: ({ row }) => <div>{row.getValue("occupation")}</div>,
+      cell: ({ row }) => <div className="text-sm">{row.getValue("occupation")}</div>,
     },
     {
       id: "actions",
@@ -149,44 +171,30 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
         const user = row.original;
 
         return (
-          <>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
-                  <MoreHorizontal />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => router.push(`/users/${user.id}`)}>
-                  <Edit2 /> Edit User
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
-                  <Trash2 /> Delete User
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete the user and remove their data from our
-                    servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <Button variant="destructive" size="sm" className="flex items-center space-x-1" asChild>
-                    <AlertDialogAction onClick={() => onDelete(user.id)}>
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      <span>Delete User</span>
-                    </AlertDialogAction>
-                  </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() => router.push(`/users/${user.id}`)}
+                className="text-teal-600 hover:text-teal-700 hover:bg-teal-50"
+              >
+                <Edit2 className="mr-2 h-4 w-4" />
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => onDelete(user.id)}
+                className="text-red-400 hover:text-red-700 hover:bg-red-50"
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         );
       },
     },
@@ -243,6 +251,26 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
           </TableBody>
         </Table>
       </div>
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your user and remove their data from our
+              servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
+            <Button variant="destructive" className="flex items-center space-x-1" asChild>
+              <AlertDialogAction onClick={confirmDelete}>
+                <Trash2 className="h-4 w-4 mr-1" />
+                <span>Delete User</span>
+              </AlertDialogAction>
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

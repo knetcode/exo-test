@@ -2,6 +2,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useTRPC } from "@/trpc/trpc";
 import { useQuery } from "@tanstack/react-query";
 import { FieldError } from "react-hook-form";
+import { Loading } from "./loading";
 
 type Props = {
   defaultOccupationId?: string;
@@ -14,7 +15,7 @@ export function OccupationField({ defaultOccupationId, setOccupationId, error }:
   const occupationList = useQuery(trpc.occupations.list.queryOptions());
 
   if (occupationList.isLoading) {
-    return <div>Loading...</div>;
+    return <Loading size="sm" text="Loading occupations..." />;
   }
 
   return (
@@ -23,7 +24,7 @@ export function OccupationField({ defaultOccupationId, setOccupationId, error }:
         Occupation
       </label>
       <Select defaultValue={defaultOccupationId} onValueChange={setOccupationId}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full border-border/50 focus:border-teal-500 focus:ring-teal-500">
           <SelectValue placeholder="Select an occupation" />
         </SelectTrigger>
         <SelectContent defaultValue={defaultOccupationId}>
@@ -34,7 +35,7 @@ export function OccupationField({ defaultOccupationId, setOccupationId, error }:
           ))}
         </SelectContent>
       </Select>
-      {error && <p>{error.message}</p>}
+      {error && <p className="text-red-400 text-sm">{error.message}</p>}
     </div>
   );
 }

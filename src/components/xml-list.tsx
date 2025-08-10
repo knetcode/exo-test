@@ -14,15 +14,17 @@ export function XMLList() {
   if (xmlQuery.isLoading) return <Loading />;
   if (xmlQuery.error)
     return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <p className="text-red-500 text-sm">Error: {xmlQuery.error.message}</p>
+      <div className="bg-card border border-border/50 rounded-lg p-6">
+        <div className="flex flex-col items-center justify-center py-8">
+          <p className="text-red-400 text-sm">Error: {xmlQuery.error.message}</p>
+        </div>
       </div>
     );
 
   const parsedData = parseXMLData(xmlQuery.data ?? "");
 
   return (
-    <div>
+    <div className="bg-card border border-border/50 rounded-lg overflow-hidden">
       <XMLDataTable data={parsedData} />
     </div>
   );

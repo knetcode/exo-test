@@ -45,49 +45,67 @@ export default function CreateUserPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-2xl font-semibold text-teal-500 text-center mb-4">Create User</h1>
-      <FormContainer>
-        <FormInput
-          label="First Name"
-          placeholder="John"
-          type="text"
-          error={errors.firstName}
-          register={register("firstName")}
-        />
-        <FormInput
-          label="Last Name"
-          placeholder="Doe"
-          type="text"
-          error={errors.lastName}
-          register={register("lastName")}
-        />
-        <FormInput
-          label="ID Number"
-          placeholder="9104285081088"
-          type="text"
-          error={errors.idNumber}
-          register={register("idNumber")}
-          onBlur={(e) => onIdBlur(e, (value) => setValue("dateOfBirth", value))}
-        />
-        <FormInput
-          label="Date of Birth"
-          type="date"
-          error={errors.dateOfBirth}
-          register={register("dateOfBirth")}
-          disabled
-        />
-        <OccupationField setOccupationId={(value) => setValue("occupationId", value)} error={errors.occupationId} />
-        <ButtonContainer>
-          <Button asChild variant="outline">
-            <Link href="/users">Back to users</Link>
-          </Button>
-          <Button type="submit" disabled={createUser.isPending}>
-            {createUser.isPending ? "Creating..." : "Submit"}
-          </Button>
-        </ButtonContainer>
-        {createUser.isError && <p className="text-red-500 text-sm">{createUser.error?.message}</p>}
-      </FormContainer>
-    </form>
+    <div className="max-w-4xl mx-auto">
+      <div className="bg-card/50 border border-border rounded-2xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-center text-teal-500 mb-4 sm:mb-6 md:mb-8">Create User</h1>
+        <p className="text-center text-muted-foreground">Add a new user to the system</p>
+
+        <div className="border-t border-border pt-4 sm:pt-6">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="bg-card border border-border/50 rounded-lg p-4 sm:p-6">
+              <FormContainer>
+                <FormInput
+                  label="First Name"
+                  placeholder="John"
+                  type="text"
+                  error={errors.firstName}
+                  register={register("firstName")}
+                />
+                <FormInput
+                  label="Last Name"
+                  placeholder="Doe"
+                  type="text"
+                  error={errors.lastName}
+                  register={register("lastName")}
+                />
+                <FormInput
+                  label="ID Number"
+                  placeholder="9104285081088"
+                  type="text"
+                  error={errors.idNumber}
+                  register={register("idNumber")}
+                  onBlur={(e) => onIdBlur(e, (value) => setValue("dateOfBirth", value))}
+                />
+                <FormInput
+                  label="Date of Birth"
+                  type="date"
+                  error={errors.dateOfBirth}
+                  register={register("dateOfBirth")}
+                  disabled
+                />
+                <OccupationField
+                  setOccupationId={(value) => setValue("occupationId", value)}
+                  error={errors.occupationId}
+                  defaultOccupationId=""
+                />
+                <ButtonContainer>
+                  <Button asChild variant="outline">
+                    <Link href="/users">Back to users</Link>
+                  </Button>
+                  <Button
+                    variant="default"
+                    type="submit"
+                    className="flex items-center space-x-1 bg-teal-500 hover:bg-teal-600"
+                  >
+                    {createUser.isPending ? "Creating..." : "Submit"}
+                  </Button>
+                </ButtonContainer>
+                {createUser.isError && <p className="text-red-400 text-sm">{createUser.error?.message}</p>}
+              </FormContainer>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -82,43 +82,45 @@ export function DocumentItem({ doc }: Readonly<Props>) {
     <>
       <div
         key={doc.id}
-        className="flex md:items-center items-start justify-between p-4 border rounded-lg shadow-sm md:flex-row flex-col "
+        className="bg-card border border-border/50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
       >
-        <div className="flex items-center gap-2">
-          <File className="h-8 w-8 text-teal-500" />
-          <div>
-            <p className="font-medium">{doc.name}</p>
-            <p className="text-sm text-muted-foreground">
-              {formatFileSize(doc.size)} • {doc.contentType}
-            </p>
-            <p className="text-xs text-muted-foreground">Uploaded {new Date(doc.createdAt).toLocaleDateString()}</p>
+        <div className="flex md:items-center items-start justify-between md:flex-row flex-col">
+          <div className="flex items-center gap-3">
+            <File className="h-8 w-8 text-teal-500" />
+            <div>
+              <p className="font-medium text-foreground">{doc.name}</p>
+              <p className="text-sm text-muted-foreground">
+                {formatFileSize(doc.size)} • {doc.contentType}
+              </p>
+              <p className="text-xs text-muted-foreground">Uploaded {new Date(doc.createdAt).toLocaleDateString()}</p>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-2 mt-4 md:mt-0">
-          <Link href={`/documents/${doc.id}`}>
-            <Button variant="default" size="sm" className="flex items-center space-x-1">
-              <Eye className="h-4 w-4" />
-              View
+          <div className="flex items-center gap-2 mt-4 md:mt-0">
+            <Link href={`/documents/${doc.id}`}>
+              <Button variant="default" size="sm" className="flex items-center space-x-1 bg-teal-500 hover:bg-teal-600">
+                <Eye className="h-4 w-4" />
+                View
+              </Button>
+            </Link>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => handleDownload(doc.url, doc.name)}
+              className="flex items-center space-x-1 border-teal-200 text-teal-700 hover:bg-teal-50"
+            >
+              <Download className="h-4 w-4" />
+              Download
             </Button>
-          </Link>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handleDownload(doc.url, doc.name)}
-            className="flex items-center space-x-1"
-          >
-            <Download className="h-4 w-4" />
-            Download
-          </Button>
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => handleDelete(doc.id)}
-            className="flex items-center space-x-1"
-          >
-            <Trash2 className="h-4 w-4" />
-            <span>Delete</span>
-          </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => handleDelete(doc.id)}
+              className="flex items-center space-x-1"
+            >
+              <Trash2 className="h-4 w-4" />
+              <span>Delete</span>
+            </Button>
+          </div>
         </div>
       </div>
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>

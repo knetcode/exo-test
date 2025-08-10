@@ -16,8 +16,10 @@ export function UserList() {
   if (userList.isLoading) return <Loading />;
   if (userList.error)
     return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <p className="text-red-500 text-sm">Error: {userList.error.message}</p>
+      <div className="bg-card border border-border/50 rounded-lg p-6">
+        <div className="flex flex-col items-center justify-center py-8">
+          <p className="text-red-400 text-sm">Error: {userList.error.message}</p>
+        </div>
       </div>
     );
 
@@ -31,13 +33,20 @@ export function UserList() {
   }));
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="space-y-6">
       <div className="flex justify-end">
-        <Button asChild>
+        <Button asChild className="bg-teal-500 hover:bg-teal-600">
           <Link href="/users/create">Create User</Link>
         </Button>
       </div>
-      {userList.data ? <UserDataTable data={userListData ?? []} /> : <div>No users found</div>}
+
+      <div className="bg-card border border-border/50 rounded-lg overflow-hidden">
+        {userList.data ? (
+          <UserDataTable data={userListData ?? []} />
+        ) : (
+          <div className="text-center py-8 text-muted-foreground">No users found</div>
+        )}
+      </div>
     </div>
   );
 }
