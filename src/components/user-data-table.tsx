@@ -89,7 +89,7 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
@@ -105,7 +105,7 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
@@ -121,7 +121,7 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
@@ -137,7 +137,7 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
@@ -153,7 +153,7 @@ export function UserDataTable({ data }: Readonly<UserDataTableProps>) {
       header: ({ column }) => {
         return (
           <Button
-            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700 hover:bg-teal-50"
+            className="has-[>svg]:px-0 text-teal-600 hover:text-teal-700"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
