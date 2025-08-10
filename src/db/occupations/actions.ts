@@ -9,7 +9,7 @@ export async function occupationFindAll() {
 }
 
 export async function occupationById(id: string) {
-  const occupation = await db.select().from(occupationsTable).where(eq(occupationsTable.id, id)).limit(1);
+  const [occupation] = await db.select().from(occupationsTable).where(eq(occupationsTable.id, id)).limit(1);
 
-  return occupation ? occupation[0] : undefined;
+  return occupation;
 }

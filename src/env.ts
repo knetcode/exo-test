@@ -4,6 +4,9 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     DATABASE_URL: z.url(),
+    MINIO_URL: z.url(),
+    MINIO_USER: z.string(),
+    MINIO_PASSWORD: z.string(),
   },
 
   /**

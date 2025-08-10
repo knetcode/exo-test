@@ -8,7 +8,7 @@ export const t = initTRPC.context().create({
       const firstError = error.cause.issues[0];
       return {
         ...shape,
-        message: firstError?.message || "Validation error",
+        message: firstError?.message ?? "Validation error",
         data: {
           ...shape.data,
           zodError: z.treeifyError(error.cause),

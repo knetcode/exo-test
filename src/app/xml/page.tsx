@@ -13,7 +13,7 @@ export default function XMLPage() {
   if (xmlQuery.isLoading) return <div>Loading...</div>;
   if (xmlQuery.error) return <div>Error: {xmlQuery.error.message}</div>;
 
-  const parsedData = parseXMLData(xmlQuery.data || "");
+  const parsedData = parseXMLData(xmlQuery.data ?? "");
 
   return (
     <div className="space-y-6">

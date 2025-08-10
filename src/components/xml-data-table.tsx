@@ -63,13 +63,13 @@ export function XMLDataTable({ data }: Readonly<Props>) {
                         if (columnName === "Identification Number") {
                           return (
                             <TableCell key={`${group.moduleCode}-${colIndex}`} className="border-r ">
-                              <div className="text-sm">{maskId(row[columnName] || "-")}</div>
+                              <div className="text-sm">{maskId(row[columnName] ?? "-")}</div>
                             </TableCell>
                           );
                         } else {
                           return (
                             <TableCell key={`${group.moduleCode}-${colIndex}`} className="border-r ">
-                              <div className="text-sm">{row[columnName] || "-"}</div>
+                              <div className="text-sm">{row[columnName] ?? "-"}</div>
                             </TableCell>
                           );
                         }

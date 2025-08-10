@@ -4,26 +4,26 @@
 
 **Capture the following personal information from users:**
 
-- [ ] First Name
-- [ ] Surname
-- [ ] ID Number
-- [ ] Date of Birth (auto-derived from the ID Number)
-- [ ] Occupation options. (Dropdown with min 20 options)
+- First Name
+- Surname
+- ID Number
+- Date of Birth (auto-derived from the ID Number)
+- Occupation options. (Dropdown with min 20 options)
 
 ## Data Privacy
 
-Implement obscuring/masking of sensitive personal information in the UI to protect
+- Implement obscuring/masking of sensitive personal information in the UI to protect
 user privacy.
 
 ## PDF Handling
 
-- [ ] Enable users to upload documents (e.g., PDFs).
-- [ ] Provide an interactive preview/display of uploaded PDFs within the application.
+- Enable users to upload documents (e.g., PDFs).
+- Provide an interactive preview/display of uploaded PDFs within the application.
 
 ## XML Data Handling
 
-- [ ] Parse and display structured XML data provided in a sample dataset.
-- [ ] The XML node descriptions should be displayed as table headers, and the corresponding data should be dynamically rendered in the UI.
+- Parse and display structured XML data provided in a sample dataset.
+- The XML node descriptions should be displayed as table headers, and the corresponding data should be dynamically rendered in the UI.
 
 ## System Requirements
 

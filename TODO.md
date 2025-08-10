@@ -12,12 +12,12 @@
 - [x] OCCUPATIONS
   - [x] Create table
   - [x] Only requires a GET procedure
-- [ ] PDF
-  - [ ] Document upload
-  - [ ] Figure out interactive preview/display of uploaded PDFs within the application
+- [x] PDF
+  - [x] Document upload
+  - [x] Figure out interactive preview/display of uploaded PDFs within the application
 - [ ] XML
   - [x] GET procedure for xml example
-  - [ ] Render in table
+  - [x] Render in table
 - [ ] Mobile Responsiveness tests
 
 ---
