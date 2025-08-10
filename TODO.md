@@ -27,6 +27,6 @@
 
 - [x] Dockerize
 - [x] Deploy and attach domain
+- [x] Make it look pretty
 - [ ] Auth
 - [ ] CSRF
-- [ ] Make it look pretty
