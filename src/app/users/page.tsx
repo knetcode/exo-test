@@ -5,6 +5,7 @@ import { useTRPC } from "@/trpc/trpc";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { maskId } from "@/utils/id-mask";
 
 export default function ListUsersPage() {
   const trpc = useTRPC();
@@ -16,7 +17,7 @@ export default function ListUsersPage() {
   const userListData = userList.data?.map((user) => ({
     firstName: user.firstName,
     lastName: user.lastName,
-    idNumber: user.idNumber.substring(0, 6) + "*******",
+    idNumber: maskId(user.idNumber),
     dateOfBirth: user.dateOfBirth,
     occupation: occupationList.data?.find((occupation) => occupation.id === user.occupationId)?.name ?? "",
     id: user.id,
