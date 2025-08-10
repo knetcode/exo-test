@@ -133,7 +133,7 @@ export function DocumentItem({ doc }: Readonly<Props>) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <Button variant="destructive" size="sm" className="flex items-center space-x-1" asChild>
+            <Button variant="destructive" className="flex items-center space-x-1" asChild>
               <AlertDialogAction onClick={confirmDelete}>
                 <Trash2 className="h-4 w-4 mr-1" />
                 <span>Delete Document</span>
