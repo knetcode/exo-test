@@ -13,7 +13,6 @@ export default function XMLPage() {
   if (xmlQuery.isLoading) return <div>Loading...</div>;
   if (xmlQuery.error) return <div>Error: {xmlQuery.error.message}</div>;
 
-  // Parse the XML data
   const parsedData = parseXMLData(xmlQuery.data || "");
 
   return (

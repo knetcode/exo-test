@@ -13,6 +13,7 @@ import { FormInput } from "@/components/form-input";
 import { OccupationField } from "@/components/occupation-field";
 import { ButtonContainer } from "@/components/button-container";
 import { onIdBlur } from "@/utils/on-id-blur";
+import { toast } from "sonner";
 
 export default function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -50,6 +51,7 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
           queryClient.invalidateQueries(trpc.users.list.queryOptions());
           queryClient.invalidateQueries(trpc.users.getById.queryOptions(id));
           router.push("/users");
+          toast.success("User updated successfully");
         },
       }
     );
