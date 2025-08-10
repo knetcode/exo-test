@@ -67,23 +67,23 @@ export function DocumentUploader() {
   });
 
   return (
-    <div className="bg-card border border-border/50 rounded-lg p-6">
+    <div className="bg-card border border-border/50 rounded-lg p-4 sm:p-6">
       <div
         {...getRootProps()}
-        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+        className={`border-2 border-dashed rounded-lg p-4 sm:p-8 text-center cursor-pointer transition-colors ${
           isDragActive ? "border-teal-500 bg-teal-500/15" : "border-gray-300 hover:border-gray-400"
         }`}
       >
         <input {...getInputProps()} />
-        <Upload className="mx-auto h-12 w-12 mb-4 text-teal-500" />
+        <Upload className="mx-auto h-8 w-8 sm:h-12 sm:w-12 mb-2 sm:mb-4 text-teal-500" />
         {isDragActive ? (
-          <p className="text-lg text-teal-600 font-medium">Drop the files here...</p>
+          <p className="text-base sm:text-lg text-teal-600 font-medium">Drop the files here...</p>
         ) : (
           <div>
-            <p className="text-lg mb-2 font-medium">
+            <p className="text-base sm:text-lg mb-1 sm:mb-2 font-medium">
               Drag & drop files here, or click to select a PDF to upload (max 2MB)
             </p>
-            <p className="text-sm text-muted-foreground">Supports PDF files up to 2MB in size</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">Supports PDF files up to 2MB in size</p>
           </div>
         )}
         {isUploading && <Loading text="Uploading..." />}

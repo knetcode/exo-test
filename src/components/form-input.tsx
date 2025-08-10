@@ -24,7 +24,7 @@ export function FormInput<T extends FieldValues>({
   onBlur,
 }: Readonly<Props<T>>) {
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-1 sm:gap-2 w-full">
       <Label htmlFor={label} className="text-sm font-medium text-teal-500">
         {label}
       </Label>

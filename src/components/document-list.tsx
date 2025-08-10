@@ -13,8 +13,8 @@ export function DocumentList() {
 
   if (documentList.error) {
     return (
-      <div className="bg-card border border-border/50 rounded-lg p-6">
-        <div className="flex flex-col items-center justify-center py-8">
+      <div className="bg-card border border-border/50 rounded-lg p-4 sm:p-6">
+        <div className="flex flex-col items-center justify-center py-6 sm:py-8">
           <p className="text-red-400 text-sm">Error: {documentList.error.message}</p>
         </div>
       </div>
@@ -23,14 +23,14 @@ export function DocumentList() {
 
   if (!documentList.data || documentList.data.length === 0) {
     return (
-      <div className="bg-card border border-border/50 rounded-lg p-6">
-        <div className="text-center py-8 text-muted-foreground">No documents uploaded yet</div>
+      <div className="bg-card border border-border/50 rounded-lg p-4 sm:p-6">
+        <div className="text-center py-6 sm:py-8 text-muted-foreground">No documents uploaded yet</div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {documentList.data.map((doc) => (
         <DocumentItem key={doc.id} doc={doc} />
       ))}

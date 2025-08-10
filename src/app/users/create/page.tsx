@@ -52,7 +52,7 @@ export default function CreateUserPage() {
 
         <div className="border-t border-border pt-4 sm:pt-6">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="bg-card border border-border/50 rounded-lg p-4 sm:p-6">
+            <div className="bg-card border border-border/50 rounded-lg p-3 sm:p-4 sm:p-6">
               <FormContainer>
                 <FormInput
                   label="First Name"

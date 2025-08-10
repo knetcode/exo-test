@@ -14,8 +14,8 @@ export function XMLList() {
   if (xmlQuery.isLoading) return <Loading />;
   if (xmlQuery.error)
     return (
-      <div className="bg-card border border-border/50 rounded-lg p-6">
-        <div className="flex flex-col items-center justify-center py-8">
+      <div className="bg-card border border-border/50 rounded-lg p-4 sm:p-6">
+        <div className="flex flex-col items-center justify-center py-6 sm:py-8">
           <p className="text-red-400 text-sm">Error: {xmlQuery.error.message}</p>
         </div>
       </div>

@@ -16,8 +16,8 @@ export function UserList() {
   if (userList.isLoading) return <Loading />;
   if (userList.error)
     return (
-      <div className="bg-card border border-border/50 rounded-lg p-6">
-        <div className="flex flex-col items-center justify-center py-8">
+      <div className="bg-card border border-border/50 rounded-lg p-4 sm:p-6">
+        <div className="flex flex-col items-center justify-center py-6 sm:py-8">
           <p className="text-red-400 text-sm">Error: {userList.error.message}</p>
         </div>
       </div>
@@ -33,7 +33,7 @@ export function UserList() {
   }));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="flex justify-end">
         <Button asChild className="bg-teal-500 hover:bg-teal-600">
           <Link href="/users/create">Create User</Link>

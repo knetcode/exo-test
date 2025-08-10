@@ -19,7 +19,7 @@ export function OccupationField({ defaultOccupationId, setOccupationId, error }:
   }
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-1 sm:gap-2 w-full">
       <label className="text-sm font-medium text-teal-500" htmlFor="occupation">
         Occupation
       </label>

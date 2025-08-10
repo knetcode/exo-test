@@ -31,10 +31,10 @@ export default function RootLayout({
         <div className="min-h-screen flex flex-col">
           <Providers>
             <Nav />
-            <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6">{children}</main>
+            <main className="flex-1 p-3 sm:p-4 md:p-6">{children}</main>
           </Providers>
+          <Toaster />
         </div>
-        <Toaster />
       </body>
     </html>
   );

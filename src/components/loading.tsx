@@ -22,7 +22,7 @@ export function Loading({ size = "md", text = "Loading...", className }: Readonl
   };
 
   return (
-    <div className={cn("flex flex-col items-center justify-center mx-auto gap-3 py-8", className)}>
+    <div className={cn("flex flex-col items-center justify-center mx-auto gap-2 sm:gap-3 py-6 sm:py-8", className)}>
       <div className={cn("animate-spin rounded-full border-b-2 border-teal-500 mx-auto", sizeClasses[size])}></div>
       {text && <span className={cn("text-muted-foreground font-medium", textSizes[size])}>{text}</span>}
     </div>

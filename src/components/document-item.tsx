@@ -82,20 +82,20 @@ export function DocumentItem({ doc }: Readonly<Props>) {
     <>
       <div
         key={doc.id}
-        className="bg-card border border-border/50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+        className="bg-card border border-border/50 rounded-lg p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow"
       >
         <div className="flex md:items-center items-start justify-between md:flex-row flex-col">
-          <div className="flex items-center gap-3">
-            <File className="h-8 w-8 text-teal-500" />
+          <div className="flex items-center gap-2 sm:gap-3">
+            <File className="h-6 w-6 sm:h-8 sm:w-8 text-teal-500" />
             <div>
               <p className="font-medium text-foreground">{doc.name}</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 {formatFileSize(doc.size)} • {doc.contentType}
               </p>
               <p className="text-xs text-muted-foreground">Uploaded {new Date(doc.createdAt).toLocaleDateString()}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 mt-4 md:mt-0">
+          <div className="flex items-center gap-1 sm:gap-2 mt-4 sm:mt-4 md:mt-0 md:justify-end justify-between w-full">
             <Link href={`/documents/${doc.id}`}>
               <Button variant="default" size="sm" className="flex items-center space-x-1 bg-teal-500 hover:bg-teal-600">
                 <Eye className="h-4 w-4" />
