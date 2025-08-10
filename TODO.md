@@ -2,7 +2,7 @@
 
 ## Critical
 
-- [ ] Flesh out the readmes
+- [x] Flesh out the readmes
 - [x] USERS
   - [x] Create full CRUD operations
   - [x] Create forms and validation
@@ -15,17 +15,18 @@
 - [x] PDF
   - [x] Document upload
   - [x] Figure out interactive preview/display of uploaded PDFs within the application
-- [ ] XML
+- [x] XML
   - [x] GET procedure for xml example
   - [x] Render in table
+- [ ] Make it look decent
 - [ ] Mobile Responsiveness tests
 
 ---
 
 ## Nice to have
 
-- [ ] Dockerize
-- [ ] Deploy and attach domain
+- [x] Dockerize
+- [x] Deploy and attach domain
 - [ ] Auth
 - [ ] CSRF
-- [ ] Make it pretty
+- [ ] Make it look pretty

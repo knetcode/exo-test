@@ -18,7 +18,6 @@ export default function CreateUserPage() {
   const router = useRouter();
   const trpc = useTRPC();
   const createUser = useMutation(trpc.users.create.mutationOptions());
-
   const queryClient = useQueryClient();
 
   const {
